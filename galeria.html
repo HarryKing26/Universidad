@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<title>Galería de Storytelling — Pedagogía Organizacional UdeA</title>
+<style>
+:root{--verde:#005C2E;--verde2:#007A3D;--verde3:#003D1F;--amarillo:#F5A800;--texto:#1f2937;--muted:#5b6472;--card:#fff;--borde:rgba(0,92,46,.10);--shadow:0 16px 40px rgba(0,0,0,.10);--shadow-soft:0 10px 24px rgba(0,0,0,.07);--r:22px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Open Sans',sans-serif;background:#f5f7f5;color:var(--texto)}
+a{text-decoration:none}
+.contenedor{max-width:1300px;margin:0 auto;padding:0 20px}
+.seccion{padding:72px 0}
+.titulo-seccion{display:inline-flex;align-items:center;gap:10px;color:var(--verde);font-size:clamp(1.25rem,2vw,1.65rem);font-weight:800;margin-bottom:34px;padding-bottom:12px;border-bottom:4px solid var(--amarillo)}
+.titulo-seccion::before{content:"";width:11px;height:11px;border-radius:999px;background:var(--amarillo);box-shadow:0 0 0 6px rgba(245,168,0,.16)}
+.navbar-custom{position:sticky;top:0;z-index:9999;background:rgba(0,92,46,.92);backdrop-filter:blur(12px);box-shadow:0 8px 26px rgba(0,0,0,.14)}
+.nav-top{display:flex;align-items:center;justify-content:space-between;padding:12px 22px;gap:14px}
+.logo-udea{height:42px;filter:brightness(0) invert(1);flex-shrink:0}
+.nav-titulo{color:#fff;font-size:.98rem;font-weight:800;letter-spacing:.2px;white-space:nowrap}
+.nav-titulo span{color:var(--amarillo)}
+.hamburger{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.22);border-radius:14px;cursor:pointer;display:flex;flex-direction:column;gap:5px;padding:10px 11px;transition:.2s;flex-shrink:0}
+.hamburger span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:.25s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.nav-links{display:none;flex-direction:column;background:linear-gradient(180deg,#004d28,#003d1f);border-top:1px solid rgba(255,255,255,.08)}
+.nav-links.abierto{display:flex}
+.nav-links a{color:rgba(255,255,255,.92);padding:14px 24px;font-size:.92rem;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.08);transition:.2s}
+.nav-links a i{color:var(--amarillo);width:16px}
+.nav-links a:hover{background:rgba(0,122,61,.95);transform:translateX(2px)}
+
+.hero-wrapper{padding:16px 20px 0;max-width:860px;margin:0 auto}
+.hero{width:100%;border-radius:14px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.18);line-height:0}
+.hero img{width:100%;height:auto;display:block}
+
+.pdf-viewer-wrap{background:#fff;border-radius:var(--r);box-shadow:var(--shadow-soft);border:1px solid var(--borde);overflow:hidden}
+.pdf-viewer-header{padding:18px 26px;border-bottom:1px solid var(--borde);display:flex;align-items:center;gap:12px}
+.pdf-viewer-header i{color:var(--verde2);font-size:1.3rem}
+.pdf-viewer-header span{font-size:.97rem;font-weight:700;color:var(--verde)}
+.pdf-frame{width:100%;height:720px;border:none;display:block}
+.pdf-viewer-footer{padding:16px 26px;border-top:1px solid var(--borde);display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.btn-verde{display:inline-flex;align-items:center;gap:8px;background:var(--verde2);color:#fff;padding:11px 22px;border-radius:10px;font-size:.88rem;font-weight:700;transition:background .2s,transform .15s}
+.btn-verde:hover{background:var(--verde);color:#fff;transform:translateY(-1px)}
+
+footer{background:linear-gradient(180deg,#003D1F,#002615);color:white;padding:32px 20px 18px;text-align:center;position:relative}
+footer::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#F5A800,#007A3D,#0066CC,#7B2D8B)}
+footer p{font-size:.84em;color:rgba(255,255,255,.55);margin-top:6px}
+#btn-arriba{position:fixed;bottom:22px;right:22px;background:linear-gradient(135deg,#007A3D,#005C2E);color:white;border:none;border-radius:50%;width:46px;height:46px;font-size:1em;cursor:pointer;box-shadow:0 10px 24px rgba(0,0,0,.24);display:none;z-index:999;align-items:center;justify-content:center;transition:transform .2s,box-shadow .2s}
+#btn-arriba:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(0,0,0,.28)}
+
+@media(max-width:900px){
+  .hero-wrapper{padding:14px 16px 0;max-width:100%}
+}
+@media(max-width:640px){
+  .hero-wrapper{padding:10px 14px 0}
+  .hero{border-radius:10px}
+  .nav-titulo{white-space:normal;font-size:.86rem;line-height:1.3}
+  .logo-udea{height:36px}
+  .seccion{padding:40px 0}
+  .titulo-seccion{font-size:1.1rem;margin-bottom:20px}
+  .pdf-viewer-header{padding:14px 16px;gap:10px}
+  .pdf-viewer-header span{font-size:.9rem}
+  .pdf-frame{height:420px}
+  .pdf-viewer-footer{padding:14px 16px}
+  .btn-verde{width:100%;justify-content:center;padding:13px 18px;font-size:.9rem}
+  .pdf-viewer-wrap{border-radius:14px}
+}
+@media(max-width:380px){
+  .nav-titulo{font-size:.78rem}
+  .logo-udea{height:30px}
+  .pdf-frame{height:340px}
+}
+</style>
+</head>
+<body>
+
+<div class="navbar-custom">
+  <div class="nav-top">
+    <div style="display:flex;align-items:center;gap:10px;min-width:0;flex:1;">
+      <img src="https://www.udea.edu.co/wps/wcm/connect/udea/f5c65b46-756d-4713-ad93-b35bc483c51a/LogoS%C3%ADmbolo+Universidad+de+Antioquia+vertical+%C2%AE-01.png?MOD=AJPERES&CVID=nG2tMrp" alt="logo" class="logo-udea" onerror="this.style.display='none'">
+      <span class="nav-titulo">Pedagogía Organizacional <span>— Pregrado en Pedagogía - UdeA</span></span>
+    </div>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+  </div>
+  <nav class="nav-links" id="nav-links">
+    <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
+    <a href="que-es.html"><i class="fas fa-question-circle"></i> ¿Qué es la Pedagogía Org.?</a>
+    <a href="por-que.html"><i class="fas fa-lightbulb"></i> ¿Por qué la Pedagogía Org.?</a>
+    <a href="experiencias.html"><i class="fas fa-microphone"></i> Experiencias de Compañeros</a>
+    <a href="galeria.html"><i class="fas fa-images"></i> Galería de Storytelling</a>
+    <a href="toolkit.html"><i class="fas fa-toolbox"></i> Caja de Herramientas</a>
+    <a href="sobre-nosotros.html"><i class="fas fa-users"></i> Sobre Nosotros</a>
+<a href="conclusiones.html"><i class="fas fa-question-circle"></i> Conclusiones</a>
+<a href="bibliografia.html"><i class="fas fa-book"></i> Bibliografía</a>
+  </nav>
+</div>
+
+<div class="hero-wrapper">
+  <div class="hero">
+    <img src="imagenes/banner3.jpeg" alt="Banner — Galería de Storytelling UdeA">
+  </div>
+</div>
+
+<section class="seccion">
+  <div class="contenedor">
+    <h3 class="titulo-seccion">Storytelling</h3>
+    <div class="pdf-viewer-wrap">
+      <div class="pdf-viewer-header">
+        <i class="fas fa-file-pdf"></i>
+        <span>Galería de Storytelling</span>
+      </div>
+      <iframe class="pdf-frame" src="https://drive.google.com/file/d/1J0O1ngXwwpTS1kCD7WKCVQeCJSVFCiAA/preview" title="Galería de Storytelling Yeraldin" allowfullscreen loading="lazy"></iframe>
+      <div class="pdf-viewer-footer">
+        <a href="https://drive.google.com/uc?export=download&id=1J0O1ngXwwpTS1kCD7WKCVQeCJSVFCiAA" class="btn-verde" target="_blank" rel="noopener noreferrer"><i class="fas fa-download"></i> Descargar PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p style="color:rgba(255,255,255,0.85);font-size:0.95em;font-weight:600;">Pedagogía Organizacional — Universidad de Antioquia</p>
+  <p>© 2026 Pregrado en Pedagogía · Proyecto académico sin ánimo de lucro.</p>
+  <p style="margin-top:12px;font-size:0.78em;color:rgba(255,255,255,0.35);">Desarrollado por <a href="https://github.com/HarryKing26" target="_blank" rel="noopener noreferrer" style="color:#F5A800;text-decoration:none;font-weight:700;">Harry ↗</a></p>
+</footer>
+
+<button id="btn-arriba" onclick="window.scrollTo({top:0,behavior:'smooth'})">▲</button>
+
+<script>
+function toggleMenu(){document.getElementById('nav-links').classList.toggle('abierto');document.getElementById('hamburger').classList.toggle('open')}
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>{document.getElementById('nav-links').classList.remove('abierto');document.getElementById('hamburger').classList.remove('open')}));
+window.addEventListener('scroll',()=>{var btn=document.getElementById('btn-arriba');if(btn)btn.style.display=window.scrollY>300?'flex':'none'});
+</script>
+</body>
+</html>

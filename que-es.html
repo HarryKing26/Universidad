@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>¿Qué es la Pedagogía Organizacional? — UdeA</title>
+    <style>
+        :root{--verde:#005C2E;--verde-2:#007A3D;--verde-3:#003D1F;--amarillo:#F5A800;--bg:#f4f7f5;--texto:#1f2937;--muted:#5b6472;--card:#ffffff;--borde:rgba(0,92,46,.12);--sombra:0 12px 30px rgba(0,0,0,.08);--radio:18px}
+        *{box-sizing:border-box;margin:0;padding:0}
+        html{scroll-behavior:smooth}
+        body{font-family:'Open Sans',sans-serif;background:radial-gradient(circle at top left,rgba(245,168,0,.10),transparent 24%),radial-gradient(circle at top right,rgba(0,122,61,.08),transparent 22%),var(--bg);color:var(--texto);line-height:1.6}
+        a{text-decoration:none}
+        .contenedor{max-width:1160px;margin:0 auto;padding:0 20px}
+        .seccion,.seccion-destacada,.tablero,.mapa{padding:68px 0}
+        .titulo-seccion{display:inline-flex;align-items:center;gap:10px;color:var(--verde);font-size:clamp(1.25rem,2vw,1.6rem);font-weight:800;margin-bottom:28px;padding-bottom:12px;border-bottom:4px solid var(--amarillo);letter-spacing:-.2px}
+        .titulo-seccion::before{content:"";width:10px;height:10px;border-radius:999px;background:var(--amarillo);box-shadow:0 0 0 6px rgba(245,168,0,.18)}
+        .navbar-custom{background:rgba(0,92,46,.96);position:sticky;top:0;z-index:9999;box-shadow:0 6px 24px rgba(0,0,0,.14);backdrop-filter:blur(10px)}
+        .nav-top{display:flex;align-items:center;justify-content:space-between;padding:12px 22px;gap:16px}
+        .logo-udea{height:42px;filter:brightness(0) invert(1)}
+        .nav-titulo{color:white;font-size:.98rem;font-weight:800;letter-spacing:.2px;white-space:nowrap}
+        .nav-titulo span{color:var(--amarillo)}
+        .hamburger{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.22);border-radius:14px;cursor:pointer;display:flex;flex-direction:column;gap:5px;padding:10px 11px;transition:transform .2s,background .2s}
+        .hamburger:hover{transform:translateY(-1px);background:rgba(255,255,255,.10)}
+        .hamburger span{display:block;width:22px;height:2px;background:white;border-radius:2px;transition:all .25s}
+        .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+        .hamburger.open span:nth-child(2){opacity:0}
+        .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+        .nav-links{display:none;flex-direction:column;background:linear-gradient(180deg,#004d28,#003d1f);border-top:1px solid rgba(255,255,255,.08)}
+        .nav-links.abierto{display:flex}
+        .nav-links a{color:rgba(255,255,255,.92);padding:14px 24px;font-size:.92rem;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.08);transition:background .2s,transform .2s}
+        .nav-links a i{color:var(--amarillo);width:16px}
+        .nav-links a:hover{background:rgba(0,122,61,.95);transform:translateX(2px)}
+        .hero-wrapper{padding:16px 20px 0 20px;max-width:860px;margin:0 auto}
+        .hero{width:100%;border-radius:14px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.18);line-height:0}
+        .hero img{width:100%;height:auto;display:block}
+        @media(max-width:900px){.hero-wrapper{padding:14px 16px 0 16px;max-width:100%}}
+        @media(max-width:640px){.hero-wrapper{padding:10px 14px 0 14px}.hero{border-radius:10px}}
+        .btn-verde,.btn-outline-blanco,.pdf-btn{border:none;cursor:pointer;transition:transform .2s,box-shadow .2s,background .2s}
+        .btn-verde{display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--verde-2),var(--verde));color:white;padding:12px 22px;border-radius:14px;font-size:.95rem;font-weight:800;box-shadow:0 10px 22px rgba(0,0,0,.14)}
+        .btn-verde:hover{color:white;transform:translateY(-2px)}
+        .btn-outline-blanco{display:inline-flex;align-items:center;justify-content:center;background:rgba(0,92,46,.07);color:var(--verde);border:1.5px solid rgba(0,92,46,.25);padding:12px 22px;border-radius:14px;font-size:.95rem;font-weight:800}
+        .btn-outline-blanco:hover{color:var(--verde);transform:translateY(-2px);background:rgba(0,92,46,.12)}
+        .card-info,.bloque-info{background:var(--card);border:1px solid var(--borde);border-radius:var(--radio);padding:24px;box-shadow:var(--sombra);transition:transform .22s,box-shadow .22s,border-color .22s}
+        .card-info:hover,.bloque-info:hover{transform:translateY(-4px);box-shadow:0 16px 34px rgba(0,0,0,.11);border-color:rgba(0,122,61,.22)}
+        .card-info{border-top:5px solid var(--verde-2)}
+        .card-info h5,.bloque-info h3{color:var(--verde);margin-bottom:10px;font-size:1rem;font-weight:800}
+        .card-info p,.bloque-info p{font-size:.93rem;color:var(--muted);line-height:1.8}
+        .info-grid,.grid-destacada{display:grid;gap:20px}
+        .info-grid{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+        .grid-destacada{grid-template-columns:repeat(auto-fit,minmax(270px,1fr))}
+        .tablero{background:rgba(255,255,255,.75)}
+        .tabla-resumen{width:100%;border-collapse:collapse;overflow:hidden;border-radius:16px;box-shadow:var(--sombra);background:white}
+        .tabla-resumen thead{background:linear-gradient(135deg,var(--verde),var(--verde-2));color:white}
+        .tabla-resumen th,.tabla-resumen td{padding:16px 18px;border:1px solid #e9ecef;text-align:left;vertical-align:top;line-height:1.65;font-size:.93rem}
+        .tabla-resumen th{font-weight:800}
+        .tabla-resumen tbody tr:nth-child(even){background:#f7fbf6}
+        .tabla-resumen tbody tr:hover{background:#edf8e9}
+        .mapa{background:linear-gradient(135deg,#005C2E,#007A3D);color:white}
+        .mapa .titulo-seccion{color:#fff;border-bottom-color:var(--amarillo)}
+        .mapa .card-info{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.12)}
+        .mapa .card-info h5,.mapa .card-info p{color:white}
+        .mapa .tabla-resumen{background:rgba(255,255,255,.08);color:white;border:1px solid rgba(255,255,255,.16)}
+        .mapa .tabla-resumen thead{background:rgba(0,0,0,.20)}
+        .mapa .tabla-resumen th,.mapa .tabla-resumen td{color:white!important;border-color:rgba(255,255,255,.14);background:transparent}
+        .mapa .tabla-resumen tbody tr:nth-child(odd){background:rgba(255,255,255,.08)}
+        .mapa .tabla-resumen tbody tr:nth-child(even){background:rgba(255,255,255,.13)}
+        .mapa .tabla-resumen tbody tr:hover{background:rgba(255,255,255,.18)}
+        .pdf-btn{display:inline-flex;align-items:center;gap:10px;margin-top:22px;background:#F5A800;color:#003D1F;font-weight:900;padding:13px 18px;border-radius:999px;box-shadow:0 10px 22px rgba(0,0,0,.18)}
+        .pdf-btn:hover{background:#ffd35c;transform:translateY(-2px)}
+        .pdf-panel{display:none;margin-top:18px;background:white;border-radius:18px;overflow:hidden;box-shadow:0 18px 34px rgba(0,0,0,.16);border:1px solid rgba(0,0,0,.06)}
+        .pdf-panel.open{display:block}
+        .pdf-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;background:linear-gradient(135deg,var(--verde),var(--verde-2));color:#fff}
+        .pdf-close{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:12px;padding:7px 12px;font-weight:700;cursor:pointer}
+        .pdf-frame{width:100%;height:700px;border:0;display:block}
+        footer{background:var(--verde-3);color:white;padding:34px 20px 18px;text-align:center;position:relative}
+        footer::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#F5A800,#007A3D,#0066CC,#7B2D8B)}
+        footer p{font-size:.9rem;color:rgba(255,255,255,.68);margin-top:6px}
+        #btn-arriba{position:fixed;bottom:22px;right:22px;width:46px;height:46px;border-radius:50%;border:none;background:linear-gradient(135deg,var(--verde-2),var(--verde));color:white;display:none;align-items:center;justify-content:center;box-shadow:0 12px 22px rgba(0,0,0,.22);z-index:999;cursor:pointer;transition:transform .2s}
+        #btn-arriba:hover{transform:translateY(-2px)}
+        .intro-wrap{text-align:center;padding:48px 20px 0;max-width:860px;margin:0 auto}
+        .intro-wrap h1{font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;color:var(--verde);line-height:1.1;letter-spacing:-.5px;margin-bottom:12px}
+        .intro-wrap h1 span{color:var(--amarillo)}
+        .intro-wrap p{font-size:.98rem;color:var(--muted);line-height:1.8;max-width:680px;margin:0 auto 20px}
+        .intro-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:8px}
+        @media(max-width:760px){.nav-titulo{white-space:normal;font-size:.92rem}.pdf-frame{height:520px}.intro-btns{flex-direction:column;align-items:center}.btn-verde,.btn-outline-blanco{width:100%;justify-content:center}}
+    </style>
+</head>
+<body>
+
+<div class="navbar-custom">
+    <div class="nav-top">
+        <div style="display:flex;align-items:center;gap:12px;">
+            <img src="https://www.udea.edu.co/wps/wcm/connect/udea/f5c65b46-756d-4713-ad93-b35bc483c51a/LogoS%C3%ADmbolo+Universidad+de+Antioquia+vertical+%C2%AE-01.png?MOD=AJPERES&CVID=nG2tMrp" alt="logo" class="logo-udea" onerror="this.style.display='none'">
+            <span class="nav-titulo">Pedagogía Organizacional <span>— Pregrado en Pedagogía - UdeA</span></span>
+        </div>
+        <button class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    </div>
+    <nav class="nav-links" id="nav-links">
+        <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
+        <a href="que-es.html"><i class="fas fa-question-circle"></i> ¿Qué es la Pedagogía Org.?</a>
+        <a href="por-que.html"><i class="fas fa-lightbulb"></i> ¿Por qué la Pedagogía Org.?</a>
+        <a href="experiencias.html"><i class="fas fa-microphone"></i> Experiencias de Compañeros</a>
+        <a href="galeria.html"><i class="fas fa-images"></i> Galería de Storytelling</a>
+        <a href="toolkit.html"><i class="fas fa-toolbox"></i> Caja de Herramientas</a>
+        <a href="sobre-nosotros.html"><i class="fas fa-users"></i> Sobre Nosotros</a>
+<a href="conclusiones.html"><i class="fas fa-question-circle"></i> Conclusiones</a>
+<a href="bibliografia.html"><i class="fas fa-book"></i> Bibliografía</a>
+    </nav>
+</div>
+
+<div class="hero-wrapper">
+    <div class="hero">
+        <img src="imagenes/bannerqw.png" alt="Banner — ¿Qué es la Pedagogía Organizacional?">
+    </div>
+</div>
+
+<div class="intro-wrap">
+    <h1>¿Qué es la <span>Pedagogía Organizacional</span>?</h1>
+    <p>La pedagogía organizacional estudia cómo se aprende, se forma y se acompaña a las personas dentro de empresas, instituciones y comunidades. No se limita a capacitar: busca comprender los contextos, leer necesidades y proponer respuestas pedagógicas con sentido humano y social.</p>
+    <div class="intro-btns">
+        <a href="#definicion" class="btn-verde">Ver definición</a>
+        <a href="#comprension" class="btn-outline-blanco">Ver bases</a>
+        <a href="#empresarial" class="btn-outline-blanco">Ver aplicación</a>
+        <a href="#creencias" class="btn-outline-blanco">Lo que creemos y lo que realmente es</a>
+    </div>
+</div>
+
+<div class="seccion" id="definicion">
+    <div class="contenedor">
+        <h3 class="titulo-seccion">Definición y objeto de estudio</h3>
+        <div class="info-grid">
+            <div class="card-info"><h5>¿Qué es?</h5><p>La pedagogía organizacional es un campo de la pedagogía que analiza cómo se <strong>aprende, se forma y se acompaña</strong> a las personas dentro de organizaciones (empresas, instituciones, ONG, etc.).</p></div>
+            <div class="card-info"><h5>Objeto de estudio</h5><p>Se centra en el <strong>talento humano</strong>, la gestión del conocimiento, la cultura institucional y el desarrollo de competencias, no solo en "capacitar" sino en <strong>formar integralmente</strong>.</p></div>
+            <div class="card-info"><h5>¿Qué la diferencia?</h5><p>No solo transmite información técnica. También interpreta contextos, identifica necesidades reales y diseña procesos formativos más pertinentes, humanos y sociales.</p></div>
+            <div class="card-info"><h5>¿Dónde actúa?</h5><p>En empresas, ONG, universidades, instituciones públicas, procesos comunitarios, cooperativas y cualquier espacio donde se requiera aprender para transformar prácticas.</p></div>
+        </div>
+    </div>
+</div>
+
+<div class="seccion-destacada" id="comprension">
+    <div class="contenedor">
+        <h3 class="titulo-seccion">Bases para comprenderla</h3>
+        <div class="grid-destacada">
+            <div class="bloque-info"><h3>1. Formación para adultos</h3><p>La mayoría de los procesos se dirigen a personas adultas, por eso la pedagogía organizacional debe considerar <strong>la experiencia previa, la autonomía y la utilidad práctica</strong> de lo que se aprende.</p></div>
+            <div class="bloque-info"><h3>2. Lectura de la cultura</h3><p>No trabaja solo con tareas o cargos. También observa <strong>valores, relaciones, formas de comunicación y maneras de convivir</strong> dentro de la organización.</p></div>
+            <div class="bloque-info"><h3>3. Gestora de cambios</h3><p>Cuando una institución cambia (estructura, tecnología, cultura), la pedagogía organiza estrategias para que las personas <strong>entiendan, se adapten y participen</strong> de manera más consciente.</p></div>
+            <div class="bloque-info"><h3>4. Aprendizaje continuo</h3><p>La organización no aprende una sola vez. Aprende todo el tiempo, y la pedagogía ayuda a que ese aprendizaje se vuelva parte de la vida institucional.</p></div>
+        </div>
+    </div>
+</div>
+
+<div class="tablero" id="empresarial">
+    <div class="contenedor">
+        <h3 class="titulo-seccion">Pedagogía organizacional en Medellín y en el trabajo empresarial</h3>
+        <div class="info-grid">
+            <div class="card-info"><h5>En Medellín</h5><p>La ciudad tiene un ecosistema diverso de empresas, universidades, fundaciones y sector público, lo que ofrece escenarios reales donde la formación pedagógica puede intervenir con propuestas cercanas al contexto local.</p></div>
+            <div class="card-info"><h5>En empresas</h5><p>El pedagogo puede apoyar inducción, formación interna, evaluación de aprendizajes, clima organizacional, liderazgo compartido y desarrollo del talento humano.</p></div>
+            <div class="card-info"><h5>Su aporte estratégico</h5><p>Ayuda a que la empresa no vea la formación como gasto, sino como <strong>inversión en personas, cultura y mejora de procesos</strong>, con impacto en la calidad del servicio y en la convivencia interna.</p></div>
+            <div class="card-info"><h5>En instituciones</h5><p>También fortalece procesos educativos internos, acompañamiento a equipos, construcción de sentido de pertenencia y diseño de estrategias para el trabajo colaborativo.</p></div>
+        </div>
+        <div style="margin-top:24px;overflow-x:auto;">
+            <table class="tabla-resumen">
+                <thead>
+                    <tr><th>Área</th><th>Qué hace el pedagogo</th><th>Resultado esperado</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Inducción</td><td>Diseña procesos formativos para nuevos integrantes que conozcan la misión, cultura y procesos de la organización.</td><td>Adaptación rápida, pertenencia y claridad de roles.</td></tr>
+                    <tr><td>Capacitación</td><td>Planea talleres, cursos y acciones formativas ajustadas a necesidades reales.</td><td>Mejora del desempeño y del clima laboral.</td></tr>
+                    <tr><td>Clima organizacional</td><td>Identifica tensiones, estilos de comunicación y necesidades emocionales y relacionales.</td><td>Mejor convivencia, comunicación y cooperación.</td></tr>
+                    <tr><td>Gestión del conocimiento</td><td>Ayuda a sistematizar saberes, experiencias y buenas prácticas de la organización.</td><td>Memoria institucional y continuidad en los procesos.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="mapa">
+    <div class="contenedor">
+        <h3 class="titulo-seccion">¿Qué hace un pedagogo en el ámbito organizacional?</h3>
+        <div class="info-grid">
+            <div class="card-info"><h5>Diagnostica</h5><p>Identifica necesidades de formación, conflictos, estilos de liderazgo y brechas de comunicación que afectan la organización.</p></div>
+            <div class="card-info"><h5>Diseña</h5><p>Construye actividades, talleres, estrategias y materiales pensados para adultos, con enfoque práctico y contextualizado.</p></div>
+            <div class="card-info"><h5>Ejecuta y acompaña</h5><p>Orienta los procesos formativos, modera espacios, promueve la participación y acompaña el aprendizaje en el día a día.</p></div>
+            <div class="card-info"><h5>Evalúa</h5><p>Observa si lo formativo produjo cambios reales en prácticas, comunicación y relaciones, y propone ajustes.</p></div>
+        </div>
+    </div>
+</div>
+
+<div class="mapa" id="creencias">
+    <div class="contenedor">
+        <h3 class="titulo-seccion">Lo que creemos y lo que realmente es</h3>
+        <div class="info-grid">
+            <div class="card-info"><h5>Lo que creemos</h5><p>"La pedagogía organizacional solo sirve para dar charlas o cursos puntuales."</p></div>
+            <div class="card-info"><h5>Lo que realmente es</h5><p>Es una forma de leer la organización, acompañar a las personas, fortalecer la cultura interna y diseñar aprendizajes con sentido.</p></div>
+            <div class="card-info"><h5>Lo que creemos</h5><p>"Solo funciona en empresas grandes."</p></div>
+            <div class="card-info"><h5>Lo que realmente es</h5><p>También se aplica en ONG, instituciones educativas, colectivos, fundaciones y proyectos comunitarios.</p></div>
+        </div>
+        <button class="pdf-btn" type="button" onclick="togglePdf()">
+            <i class="fa-solid fa-file-pdf"></i> Ver PDF de la sección
+        </button>
+        <div class="pdf-panel" id="pdfPanel">
+            <div class="pdf-bar">
+                <strong>PDF de apoyo</strong>
+                <button class="pdf-close" onclick="togglePdf()">Cerrar</button>
+            </div>
+            <iframe class="pdf-frame" src="https://drive.google.com/file/d/1GlKVGTYFZ1k0wJxq4dCuDifQQNY6LRbv/preview" allow="autoplay"></iframe>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p style="color:rgba(255,255,255,0.85);font-size:0.95em;font-weight:600;">Pedagogía Organizacional — Universidad de Antioquia</p>
+    <p>© 2026 Pregrado en Pedagogía · Proyecto académico sin ánimo de lucro.</p>
+    <p style="margin-top:12px;font-size:0.78em;color:rgba(255,255,255,0.35);">Desarrollado por <a href="https://github.com/HarryKing26" target="_blank" rel="noopener noreferrer" style="color:#F5A800;text-decoration:none;font-weight:700;">Harry ↗</a></p>
+</footer>
+
+<button id="btn-arriba" onclick="window.scrollTo({top:0,behavior:'smooth'})">▲</button>
+
+<script>
+    function toggleMenu(){document.getElementById('nav-links').classList.toggle('abierto');document.getElementById('hamburger').classList.toggle('open')}
+    document.querySelectorAll('.nav-links a').forEach(function(a){a.addEventListener('click',function(){document.getElementById('nav-links').classList.remove('abierto');document.getElementById('hamburger').classList.remove('open')})});
+    window.addEventListener('scroll',function(){var btn=document.getElementById('btn-arriba');if(btn)btn.style.display=window.scrollY>300?'flex':'none'});
+    function togglePdf(){document.getElementById('pdfPanel').classList.toggle('open')}
+</script>
+</body>
+</html>

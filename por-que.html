@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <title>¿Por qué la Pedagogía Organizacional? — UdeA</title>
+  <style>
+    :root{--verde:#005C2E;--verde2:#007A3D;--verde3:#003D1F;--amarillo:#F5A800;--texto:#1f2937;--muted:#5b6472;--borde:rgba(0,92,46,.10);--shadow:0 16px 40px rgba(0,0,0,.10);--shadow-soft:0 10px 24px rgba(0,0,0,.07);--r:22px}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Open Sans',sans-serif;color:var(--texto);background:#f5f7f5;line-height:1.65}
+    a{text-decoration:none}
+    .contenedor{max-width:1200px;margin:0 auto;padding:0 20px}
+    .navbar-custom{position:sticky;top:0;z-index:9999;background:rgba(0,92,46,.92);backdrop-filter:blur(12px);box-shadow:0 8px 26px rgba(0,0,0,.14)}
+    .nav-top{display:flex;align-items:center;justify-content:space-between;padding:12px 22px;gap:14px}
+    .logo-udea{height:42px;filter:brightness(0) invert(1);flex-shrink:0}
+    .nav-titulo{color:#fff;font-size:.98rem;font-weight:800;letter-spacing:.2px;white-space:nowrap}
+    .nav-titulo span{color:var(--amarillo)}
+    .hamburger{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.22);border-radius:14px;cursor:pointer;display:flex;flex-direction:column;gap:5px;padding:10px 11px;transition:.2s;flex-shrink:0}
+    .hamburger span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:.25s}
+    .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .hamburger.open span:nth-child(2){opacity:0}
+    .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+    .nav-links{display:none;flex-direction:column;background:linear-gradient(180deg,#004d28,#003d1f);border-top:1px solid rgba(255,255,255,.08)}
+    .nav-links.abierto{display:flex}
+    .nav-links a{color:rgba(255,255,255,.92);padding:14px 24px;font-size:.92rem;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.08);transition:.2s}
+    .nav-links a i{color:var(--amarillo);width:16px}
+    .nav-links a:hover{background:rgba(0,122,61,.95);transform:translateX(2px)}
+    .hero-wrapper{padding:16px 20px 0;max-width:860px;margin:0 auto}
+    .hero{width:100%;border-radius:14px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.18);line-height:0}
+    .hero img{width:100%;height:auto;display:block}
+    .intro-wrap{text-align:center;padding:48px 20px 0;max-width:800px;margin:0 auto}
+    .intro-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;background:rgba(0,92,46,.08);border:1px solid rgba(0,92,46,.14);font-size:.80rem;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--verde);margin-bottom:16px}
+    .intro-badge i{color:var(--amarillo)}
+    .intro-wrap h1{font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;color:var(--verde);line-height:1.1;letter-spacing:-.5px;margin-bottom:12px}
+    .intro-wrap h1 span{color:var(--amarillo)}
+    .intro-wrap p{font-size:.98rem;color:var(--muted);line-height:1.8;max-width:680px;margin:0 auto}
+    .seccion{padding:64px 0}
+    .seccion-titulo{display:inline-flex;align-items:center;gap:10px;color:var(--verde);font-size:clamp(1.2rem,2vw,1.55rem);font-weight:800;margin-bottom:10px;padding-bottom:10px;border-bottom:4px solid var(--amarillo)}
+    .seccion-titulo::before{content:"";width:10px;height:10px;border-radius:999px;background:var(--amarillo);box-shadow:0 0 0 5px rgba(245,168,0,.16)}
+    .seccion-sub{color:var(--muted);font-size:.93rem;margin-bottom:30px;max-width:750px;line-height:1.75}
+    .info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+    .card-info{background:#fff;border-radius:var(--r);padding:24px;border-top:5px solid var(--verde2);box-shadow:var(--shadow-soft);transition:transform .22s,box-shadow .22s;border-color:.22s;position:relative;overflow:hidden}
+    .card-info::after{content:'';position:absolute;inset:auto -20% -45% auto;width:160px;height:160px;border-radius:50%;background:rgba(0,122,61,.04)}
+    .card-info:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+    .card-info h5{color:var(--verde);margin-bottom:8px;font-size:.97rem;font-weight:800}
+    .card-info p{font-size:.88rem;color:var(--muted);line-height:1.72}
+    .card-tag{display:inline-block;margin-top:12px;font-size:.78rem;font-weight:800;padding:4px 10px;border-radius:999px;background:rgba(0,92,46,.07);color:var(--verde2)}
+    .ambitos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
+    .ambito-card{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-soft);transition:transform .22s,box-shadow .22s;border:1.5px solid var(--borde)}
+    .ambito-card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+    .ambito-top{height:6px}
+    .ambito-body{padding:22px}
+    .ambito-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:12px;background:rgba(0,92,46,.08);color:var(--verde2)}
+    .ambito-body strong{display:block;font-size:.97rem;font-weight:800;color:var(--verde);margin-bottom:8px}
+    .ambito-body p{font-size:.87rem;color:var(--muted);line-height:1.7}
+    .seccion-oscura{background:linear-gradient(135deg,#005C2E,#007A3D);padding:64px 0}
+    .seccion-oscura .seccion-titulo{color:#fff}
+    .seccion-oscura .seccion-titulo::before{background:var(--amarillo)}
+    .seccion-oscura .seccion-sub{color:rgba(255,255,255,.75)}
+    .seccion-oscura .card-info{background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.12);border-top-color:var(--amarillo)}
+    .seccion-oscura .card-info h5{color:#fff}
+    .seccion-oscura .card-info p{color:rgba(255,255,255,.82)}
+    .seccion-oscura .card-tag{background:rgba(255,255,255,.12);color:rgba(255,255,255,.9)}
+    .retos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:22px}
+    .reto-card{background:#fff;border-radius:var(--r);padding:24px;box-shadow:var(--shadow-soft);border-top:5px solid var(--amarillo);transition:transform .22s,box-shadow .22s}
+    .reto-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+    .reto-card h5{font-size:.97rem;font-weight:800;color:var(--texto);margin-bottom:8px}
+    .reto-card p{font-size:.87rem;color:var(--muted);line-height:1.72}
+    .reto-respuesta{margin-top:14px;background:#f0f9f3;border-left:4px solid var(--verde2);border-radius:0 10px 10px 0;padding:10px 14px;font-size:.84rem;color:var(--verde3);line-height:1.65}
+    footer{background:linear-gradient(180deg,#003D1F,#002615);color:#fff;padding:32px 20px 18px;text-align:center;position:relative;margin-top:10px}
+    footer::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#F5A800,#007A3D,#0066CC,#7B2D8B)}
+    footer p{font-size:.84em;color:rgba(255,255,255,.55);margin-top:6px}
+    #btn-arriba{position:fixed;bottom:22px;right:22px;width:46px;height:46px;border-radius:50%;border:none;background:linear-gradient(135deg,var(--verde2),var(--verde));color:#fff;display:none;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(0,0,0,.24);z-index:999;font-size:1em;cursor:pointer;transition:transform .2s}
+    #btn-arriba:hover{transform:translateY(-2px)}
+    @media(max-width:900px){.hero-wrapper{padding:14px 16px 0;max-width:100%}}
+    @media(max-width:640px){
+      .hero-wrapper{padding:10px 14px 0}.hero{border-radius:10px}
+      .nav-titulo{white-space:normal;font-size:.86rem;line-height:1.3}
+      .logo-udea{height:36px}
+      .seccion{padding:44px 0}
+      .seccion-oscura{padding:44px 0}
+      .info-grid,.ambitos-grid,.retos-grid{grid-template-columns:1fr}
+    }
+    @media(max-width:380px){.nav-titulo{font-size:.76rem}.logo-udea{height:30px}}
+  </style>
+</head>
+<body>
+
+<div class="navbar-custom">
+  <div class="nav-top">
+    <div style="display:flex;align-items:center;gap:10px;min-width:0;flex:1;">
+      <img src="https://www.udea.edu.co/wps/wcm/connect/udea/f5c65b46-756d-4713-ad93-b35bc483c51a/LogoS%C3%ADmbolo+Universidad+de+Antioquia+vertical+%C2%AE-01.png?MOD=AJPERES&CVID=nG2tMrp" alt="logo" class="logo-udea" onerror="this.style.display='none'">
+      <span class="nav-titulo">Pedagogía Organizacional <span>— Pregrado en Pedagogía - UdeA</span></span>
+    </div>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+  </div>
+  <nav class="nav-links" id="nav-links">
+    <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
+    <a href="que-es.html"><i class="fas fa-question-circle"></i> ¿Qué es la Pedagogía Org.?</a>
+    <a href="por-que.html"><i class="fas fa-lightbulb"></i> ¿Por qué la Pedagogía Org.?</a>
+    <a href="experiencias.html"><i class="fas fa-microphone"></i> Experiencias de Compañeros</a>
+    <a href="galeria.html"><i class="fas fa-images"></i> Galería de Storytelling</a>
+    <a href="toolkit.html"><i class="fas fa-toolbox"></i> Caja de Herramientas</a>
+    <a href="sobre-nosotros.html"><i class="fas fa-users"></i> Sobre Nosotros</a>
+<a href="conclusiones.html"><i class="fas fa-question-circle"></i> Conclusiones</a>
+<a href="bibliografia.html"><i class="fas fa-book"></i> Bibliografía</a>
+  </nav>
+</div>
+
+<div class="hero-wrapper">
+  <div class="hero">
+    <img src="imagenes/banner4.png" alt="Banner ¿Por qué la Pedagogía Organizacional?" onerror="this.style.display='none'">
+  </div>
+</div>
+
+<div class="intro-wrap">
+  <div class="intro-badge"><i class="fas fa-lightbulb"></i> Fundamentos del campo</div>
+  <h1>¿Por qué la Pedagogía <span>Organizacional?</span></h1>
+  <p>Porque las organizaciones no solo producen bienes o servicios — también forman personas. La pedagogía organizacional aplica principios educativos en el ámbito empresarial para alinear el crecimiento del talento humano con los objetivos de la organización.</p>
+</div>
+
+<div class="seccion">
+  <div class="contenedor">
+    <h3 class="seccion-titulo">¿Qué hace el Pedagogo Organizacional?</h3>
+    <p class="seccion-sub">El pedagogo organizacional desarrolla los conocimientos del recurso humano de una empresa para que pueda alcanzar su máximo potencial. Estas son sus funciones principales.</p>
+    <div class="ambitos-grid">
+
+      <div class="ambito-card">
+        <div class="ambito-top" style="background:#007A3D;"></div>
+        <div class="ambito-body">
+          <div class="ambito-icon"><i class="fas fa-search"></i></div>
+          <strong>Definición de necesidades</strong>
+          <p>Identifica las necesidades de capacitación en los empleados y determina qué planes de formación son requeridos por cada área de la organización, antes de diseñar cualquier programa.</p>
+        </div>
+      </div>
+
+      <div class="ambito-card">
+        <div class="ambito-top" style="background:#0066CC;"></div>
+        <div class="ambito-body">
+          <div class="ambito-icon" style="color:#0066CC;background:rgba(0,102,204,.08)"><i class="fas fa-pencil-ruler"></i></div>
+          <strong>Diseño de programas de aprendizaje</strong>
+          <p>Crea y desarrolla programas personalizados a las necesidades de la empresa y el sector, que incluyen cursos, talleres y materiales de formación centrados en las necesidades específicas de los empleados.</p>
+        </div>
+      </div>
+
+      <div class="ambito-card">
+        <div class="ambito-top" style="background:#E85D04;"></div>
+        <div class="ambito-body">
+          <div class="ambito-icon" style="color:#E85D04;background:rgba(232,93,4,.08)"><i class="fas fa-chalkboard-teacher"></i></div>
+          <strong>Creación de materiales didácticos</strong>
+          <p>Diseña los materiales didácticos que podrán ser utilizados en áreas de trabajo, talleres, cursos e inducciones, adaptados al contexto y las necesidades de cada equipo o cargo.</p>
+        </div>
+      </div>
+
+      <div class="ambito-card">
+        <div class="ambito-top" style="background:#7B2D8B;"></div>
+        <div class="ambito-body">
+          <div class="ambito-icon" style="color:#7B2D8B;background:rgba(123,45,139,.08)"><i class="fas fa-user-tie"></i></div>
+          <strong>Asesoramiento en desarrollo del personal</strong>
+          <p>Acompaña el desarrollo y gestión del personal, creando planes de carrera definidos para cada puesto de trabajo que favorecen el crecimiento profesional y la adaptación a las dinámicas de la organización.</p>
+        </div>
+      </div>
+
+      <div class="ambito-card">
+        <div class="ambito-top" style="background:#B5970A;"></div>
+        <div class="ambito-body">
+          <div class="ambito-icon" style="color:#B5970A;background:rgba(181,151,10,.08)"><i class="fas fa-chart-bar"></i></div>
+          <strong>Medición del desempeño formativo</strong>
+          <p>Evalúa constantemente sus planes de estudio y los reajusta según las áreas de oportunidad identificadas. Mide el desempeño de los programas educativos y el impacto que tienen en la operación.</p>
+        </div>
+      </div>
+
+      <div class="ambito-card">
+        <div class="ambito-top" style="background:#2D9E6B;"></div>
+        <div class="ambito-body">
+          <div class="ambito-icon" style="color:#2D9E6B;background:rgba(45,158,107,.08)"><i class="fas fa-users-cog"></i></div>
+          <strong>Facilitación del aprendizaje activo</strong>
+          <p>Anima a los empleados a participar activamente en su proceso de aprendizaje, aplicando nuevos conocimientos en contextos reales. Esto aumenta la retención y fomenta habilidades de pensamiento crítico esenciales.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="seccion-oscura">
+  <div class="contenedor">
+    <h3 class="seccion-titulo">Modelos de Pedagogía Empresarial</h3>
+    <p class="seccion-sub">Incorporar la pedagogía organizacional requiere seleccionar el modelo adecuado para garantizar que el aprendizaje se alinea con los objetivos de la empresa y fomenta el crecimiento de los empleados.</p>
+    <div class="info-grid">
+
+      <div class="card-info">
+        <h5>Aprendizaje experiencial</h5>
+        <p>Se basa en que los empleados aprenden mejor a través de la experiencia directa. Hace énfasis en actividades prácticas como simulaciones, juegos de rol y tareas basadas en proyectos, aplicando conocimientos teóricos en escenarios del mundo real.</p>
+        <span class="card-tag">Simulaciones y roleplay</span>
+      </div>
+
+      <div class="card-info">
+        <h5>Mentoría y coaching</h5>
+        <p>Se basa en interacciones individuales entre empleados con más experiencia y aquellos que buscan desarrollar sus habilidades. Los mentores ofrecen orientación, comparten conocimientos del sector y acompañan a los aprendices en el logro de sus objetivos profesionales.</p>
+        <span class="card-tag">Desarrollo del liderazgo</span>
+      </div>
+
+      <div class="card-info">
+        <h5>Aprendizaje combinado</h5>
+        <p>Combina métodos de formación presencial con plataformas de aprendizaje digitales u online. Ofrece flexibilidad para que los empleados aprendan a su propio ritmo, garantizando formación coherente para equipos dispersos geográficamente.</p>
+        <span class="card-tag">Formación híbrida</span>
+      </div>
+
+      <div class="card-info">
+        <h5>Aprendizaje colaborativo</h5>
+        <p>Se centra en el trabajo en equipo y la resolución colectiva de problemas, permitiendo a los empleados aprender unos de otros. Fomenta la comunicación, la cooperación y el conocimiento compartido, esenciales en equipos interfuncionales.</p>
+        <span class="card-tag">Trabajo en equipo</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="seccion">
+  <div class="contenedor">
+    <h3 class="seccion-titulo">¿Por qué es importante en las organizaciones?</h3>
+    <p class="seccion-sub">El crecimiento de la demanda de pedagogos organizacionales no es casualidad. Su labor marca una diferencia concreta en los resultados organizacionales.</p>
+    <div class="retos-grid">
+
+      <div class="reto-card">
+        <h5>Mayor retención de personal</h5>
+        <p>Con planes de carrera claros y un acompañamiento continuo, los trabajadores se sienten más satisfechos con su lugar de trabajo, lo que reduce la probabilidad de que busquen otras empresas y genera ahorro en nuevas contrataciones.</p>
+        <div class="reto-respuesta"><strong>Resultado:</strong> Equipos más estables, mayor sentido de pertenencia y reducción de costos asociados a la rotación laboral.</div>
+      </div>
+
+      <div class="reto-card" style="border-top-color:#0066CC;">
+        <h5>Facilita la innovación empresarial</h5>
+        <p>Como lo señala el Foro Económico Mundial, el futuro de las empresas está en la tecnología, especialmente la inteligencia artificial. Para que eso sea una realidad, las organizaciones necesitan pedagogos que capaciten a los equipos a adaptarse a los nuevos avances tecnológicos.</p>
+        <div class="reto-respuesta" style="border-left-color:#0066CC;"><strong>Resultado:</strong> Equipos preparados para el cambio tecnológico y con capacidad de adaptación continua.</div>
+      </div>
+
+      <div class="reto-card" style="border-top-color:#E85D04;">
+        <h5>Crea una cultura de colaboración</h5>
+        <p>Los espacios de aprendizaje que crean los pedagogos motivan a los trabajadores a compartir conocimientos y descubrimientos con otros compañeros, lo que impulsa la innovación y la colaboración interdepartamental, fundamental para el crecimiento de una empresa.</p>
+        <div class="reto-respuesta" style="border-left-color:#E85D04;"><strong>Resultado:</strong> Mayor cohesión entre equipos, mejor comunicación interna y entornos más innovadores.</div>
+      </div>
+
+      <div class="reto-card" style="border-top-color:#7B2D8B;">
+        <h5>Dónde trabaja el pedagogo organizacional</h5>
+        <p>Los especialistas en pedagogía se encuentran en organizaciones de múltiples sectores: manufactura, banca, comercio, turismo y logística. Se ubican en el departamento de recursos humanos en cargos como gerente de capacitación, diseñador instruccional o coordinador de desarrollo organizacional.</p>
+        <div class="reto-respuesta" style="border-left-color:#7B2D8B;"><strong>Perfil en crecimiento:</strong> La pedagogía organizacional es hoy una de las especialidades más cotizadas por las empresas en todo el mundo.</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p style="color:rgba(255,255,255,0.85);font-size:0.95em;font-weight:600;">¿Por qué la Pedagogía Organizacional? — Universidad de Antioquia</p>
+  <p>© 2026 Pregrado en Pedagogía · Proyecto académico sin ánimo de lucro.</p>
+  <p style="margin-top:12px;font-size:0.78em;color:rgba(255,255,255,0.35);">Desarrollado por <a href="https://github.com/HarryKing26" target="_blank" rel="noopener noreferrer" style="color:#F5A800;text-decoration:none;font-weight:700;">Harry ↗</a></p>
+</footer>
+
+<button id="btn-arriba" onclick="window.scrollTo({top:0,behavior:'smooth'})">▲</button>
+
+<script>
+  function toggleMenu(){document.getElementById('nav-links').classList.toggle('abierto');document.getElementById('hamburger').classList.toggle('open')}
+  document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>{document.getElementById('nav-links').classList.remove('abierto');document.getElementById('hamburger').classList.remove('open')}));
+  window.addEventListener('scroll',()=>{var btn=document.getElementById('btn-arriba');if(btn)btn.style.display=window.scrollY>300?'flex':'none'});
+</script>
+</body>
+</html>

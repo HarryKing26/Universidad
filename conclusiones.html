@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Conclusiones — Pedagogía Organizacional UdeA</title>
+    <style>
+        :root {
+            --verde: #005C2E;
+            --verde2: #007A3D;
+            --verde3: #003D1F;
+            --amarillo: #F5A800;
+            --texto: #1f2937;
+            --muted: #5b6472;
+            --card: #fff;
+            --borde: rgba(0,92,46,.10);
+            --shadow: 0 16px 40px rgba(0,0,0,.10);
+            --shadow-soft: 0 10px 24px rgba(0,0,0,.07);
+            --r: 22px
+        }
+        * {box-sizing: border-box; margin: 0; padding: 0}
+        html {scroll-behavior: smooth}
+        body {font-family: 'Open Sans', sans-serif; background: #f5f7f5; color: var(--texto)}
+        a {text-decoration: none}
+        .contenedor {max-width: 1300px; margin: 0 auto; padding: 0 20px}
+        .seccion {padding: 72px 0}
+        .seccion+.seccion {padding-top: 18px}
+        .titulo-seccion {display: inline-flex; align-items: center; gap: 10px; color: var(--verde); font-size: clamp(1.25rem,2vw,1.65rem); font-weight: 800; margin-bottom: 34px; padding-bottom: 12px; border-bottom: 4px solid var(--amarillo)}
+        .titulo-seccion::before {content: ""; width: 11px; height: 11px; border-radius: 999px; background: var(--amarillo); box-shadow: 0 0 0 6px rgba(245,168,0,.16)}
+        
+        /* Navbar */
+        .navbar-custom {position: sticky; top: 0; z-index: 9999; background: rgba(0,92,46,.92); backdrop-filter: blur(12px); box-shadow: 0 8px 26px rgba(0,0,0,.14)}
+        .nav-top {display: flex; align-items: center; justify-content: space-between; padding: 12px 22px; gap: 14px}
+        .logo-udea {height: 42px; filter: brightness(0) invert(1); flex-shrink: 0}
+        .nav-titulo {color: #fff; font-size: .98rem; font-weight: 800; letter-spacing: .2px; white-space: nowrap}
+        .nav-titulo span {color: var(--amarillo)}
+        .hamburger {background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.22); border-radius: 14px; cursor: pointer; display: flex; flex-direction: column; gap: 5px; padding: 10px 11px; transition: .2s; flex-shrink: 0}
+        .hamburger span {display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; transition: .25s}
+        .hamburger.open span:nth-child(1) {transform: translateY(7px) rotate(45deg)}
+        .hamburger.open span:nth-child(2) {opacity: 0}
+        .hamburger.open span:nth-child(3) {transform: translateY(-7px) rotate(-45deg)}
+        .nav-links {display: none; flex-direction: column; background: linear-gradient(180deg,#004d28,#003d1f); border-top: 1px solid rgba(255,255,255,.08)}
+        .nav-links.abierto {display: flex}
+        .nav-links a {color: rgba(255,255,255,.92); padding: 14px 24px; font-size: .92rem; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid rgba(255,255,255,.08); transition: .2s}
+        .nav-links a i {color: var(--amarillo); width: 16px}
+        .nav-links a:hover, .nav-links a.active {background: rgba(0,122,61,.95); transform: translateX(2px)}
+
+        /* Layout Grid para Conclusiones */
+        .highlight-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 24px}
+        .h-card {border-radius: 16px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,.09); transition: transform .2s, box-shadow .2s; color: #222; display: block; border: 1px solid rgba(0,0,0,.04); background: #fff}
+        .h-card:hover {transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,.14)}
+        .h-card .h-top {height: 8px}
+        .h-card .h-body {padding: 22px; background: white; min-height: 180px}
+        .h-card .h-icon {font-size: 1.7em; margin-bottom: 10px; color: #007A3D}
+        .h-card h5 {font-size: .95em; font-weight: 700; color: #005C2E; margin-bottom: 8px}
+        .h-card p {font-size: .86em; color: #5b6472; line-height: 1.65}
+
+        /* Bloque Destacado Voces */
+        .quote-block {background: linear-gradient(135deg, #005C2E, #007A3D); color: white; border-radius: var(--r); padding: 40px; margin-top: 44px; box-shadow: var(--shadow-soft); position: relative; overflow: hidden}
+        .quote-block::before {content: "\f10d"; font-family: "Font Awesome 5 Free"; font-weight: 900; position: absolute; top: -10px; left: 20px; font-size: 8rem; color: rgba(255,255,255,0.06); line-height: 1}
+        .quote-block p {font-size: 1.05rem; line-height: 1.8; font-style: italic; position: relative; z-index: 1}
+        .quote-block span {display: block; margin-top: 15px; font-weight: 700; color: var(--amarillo); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px}
+
+        footer {background: linear-gradient(180deg,#003D1F,#002615); color: white; padding: 32px 20px 18px; text-align: center; position: relative}
+        footer::before {content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg,#F5A800,#007A3D,#0066CC,#7B2D8B)}
+        footer p {font-size: .84em; color: rgba(255,255,255,.55); margin-top: 6px}
+        #btn-arriba {position: fixed; bottom: 22px; right: 22px; background: linear-gradient(135deg,#007A3D,#005C2E); color: white; border: none; border-radius: 50%; width: 46px; height: 46px; font-size: 1em; cursor: pointer; box-shadow: 0 10px 24px rgba(0,0,0,.24); display: none; z-index: 999; align-items: center; justify-content: center; transition: transform .2s}
+        #btn-arriba:hover {transform: translateY(-2px)}
+
+        @media(max-width:640px){
+            .nav-titulo {white-space: normal; font-size: .86rem; line-height: 1.3}
+            .logo-udea {height: 36px}
+            .seccion {padding: 48px 0}
+            .titulo-seccion {font-size: 1.1rem; margin-bottom: 22px}
+            .highlight-grid {grid-template-columns: 1fr}
+            .quote-block {padding: 24px}
+            .quote-block p {font-size: 0.95rem}
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar-custom">
+    <div class="nav-top">
+        <div style="display:flex;align-items:center;gap:10px;min-width:0;flex:1;">
+            <img src="https://www.udea.edu.co/wps/wcm/connect/udea/f5c65b46-756d-4713-ad93-b35bc483c51a/LogoS%C3%ADmbolo+Universidad+de+Antioquia+vertical+%C2%AE-01.png?MOD=AJPERES&CVID=nG2tMrp" alt="logo" class="logo-udea" onerror="this.style.display='none'">
+            <span class="nav-titulo">Pedagogía Organizacional <span>— Pregrado en Pedagogía - UdeA</span></span>
+        </div>
+        <button class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    </div>
+    <nav class="nav-links" id="nav-links">
+        <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
+        <a href="que-es.html"><i class="fas fa-question-circle"></i> ¿Qué es la Pedagogía Org.?</a>
+        <a href="por-que.html"><i class="fas fa-lightbulb"></i> ¿Por qué la Pedagogía Org.?</a>
+        <a href="experiencias.html"><i class="fas fa-microphone"></i> Experiencias de Compañeros</a>
+        <a href="galeria.html"><i class="fas fa-images"></i> Galería de Storytelling</a>
+        <a href="toolkit.html"><i class="fas fa-toolbox"></i> Caja de Herramientas</a>
+        <a href="conclusiones.html" class="active"><i class="fas fa-clipboard-check"></i> Conclusiones</a>
+        <a href="sobre-nosotros.html"><i class="fas fa-users"></i> Sobre Nosotros</a>
+<a href="bibliografia.html"><i class="fas fa-book"></i> Bibliografía</a>
+
+    </nav>
+</div>
+
+<section class="seccion" style="padding-bottom: 20px;">
+    <div class="contenedor" style="text-align:center; max-width:980px;">
+        <div style="display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:999px;background:rgba(0,92,46,.08);border:1px solid rgba(0,92,46,.12);font-size:.82rem;font-weight:800;letter-spacing:.4px;text-transform:uppercase;margin:0 auto 18px;color:var(--verde);box-shadow:0 8px 20px rgba(0,92,46,.08);justify-content:center;">
+            <span>Balance e Impacto del Proyecto</span>
+        </div>
+        <h2 style="font-size:clamp(1.6rem,4vw,2.6rem);font-weight:800;color:var(--verde);line-height:1.15;margin-bottom:12px;">Nuestras Conclusiones</h2>
+        <p style="font-size:clamp(.88rem,2vw,.98rem);color:#4b5563;max-width:860px;margin:0 auto;line-height:1.8;">
+            Reflexiones finales construidas a partir del diseño de recursos didácticos, la revisión de conceptos prácticos y las valiosas experiencias compartidas por la comunidad estudiantil.
+        </p>
+    </div>
+</section>
+
+<section class="seccion-highlight" style="padding:22px 0 50px;">
+    <div class="contenedor">
+        <h3 class="titulo-seccion">Aprendizajes Clave</h3>
+        
+        <div class="highlight-grid">
+            <div class="h-card">
+                <div class="h-top" style="background:#007A3D;"></div>
+                <div class="h-body">
+                    <div class="h-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h5>Más allá de la escuela tradicional</h5>
+                    <p>Logramos concluir que el campo de acción del pedagogo trasciende el aula escolar. Las organizaciones y empresas actúan como ecosistemas vivos de aprendizaje permanente donde los procesos de formación impactan directamente el clima y el crecimiento humano.</p>
+                </div>
+            </div>
+
+            <div class="h-card">
+                <div class="h-top" style="background:#0066CC;"></div>
+                <div class="h-body">
+                    <div class="h-icon" style="color:#0066CC;"><i class="fas fa-chart-line"></i></div>
+                    <h5>Humanización de entornos laborales</h5>
+                    <p>Al priorizar estrategias enfocadas en el aprendizaje de adultos, confirmamos que la intervención formativa en las empresas no debe buscar solo la productividad o eficiencia técnica, sino propiciar espacios de diálogo, bienestar y el desarrollo integral del trabajador.</p>
+                </div>
+            </div>
+
+            <div class="h-card">
+                <div class="h-top" style="background:#E85D04;"></div>
+                <div class="h-body">
+                    <div class="h-icon" style="color:#E85D04;"><i class="fas fa-toolbox"></i></div>
+                    <h5>El rol estratégico del Toolkit</h5>
+                    <p>La creación de la Caja de Herramientas evidenció que el pedagogo organizacional debe ser un diseñador de experiencias. Contar con recursos didácticos claros e interactivos es indispensable para facilitar la transferencia de conocimientos y estructurar planes de capacitación dinámicos.</p>
+                </div>
+            </div>
+
+            <div class="h-card">
+                <div class="h-top" style="background:#7B2D8B;"></div>
+                <div class="h-body">
+                    <div class="h-icon" style="color:#7B2D8B;"><i class="fas fa-bullhorn"></i></div>
+                    <h5>El valor de narrar la experiencia</h5>
+                    <p>A través de la galería y los testimonios de los compañeros en práctica, entendemos que la sistematización de experiencias es una herramienta formativa en sí misma. Compartir las realidades vividas ayuda a los estudiantes que inician a aterrizar la teoría a las dinámicas del contexto laboral actual.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="quote-block">
+            <p>
+                "Como estudiantes del Pregrado en Pedagogía de la Universidad de Antioquia, este recorrido nos demuestra que construir organizaciones enfocadas en el aprendizaje colectivo y consciente no es una utopía. El verdadero reto radica en nuestra capacidad para ingresar a los entornos institucionales, entender sus necesidades culturales y proponer modelos formativos que pongan el saber al servicio del crecimiento de las personas."
+            </p>
+            <span>— Reflexión Colectiva del Equipo de Trabajo (2026)</span>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p style="color:rgba(255,255,255,0.85);font-size:0.95em;font-weight:600;">Pedagogía Organizacional — Universidad de Antioquia</p>
+    <p>© 2026 Pregrado en Pedagogía · Proyecto académico sin ánimo de lucro.</p>
+    <p style="margin-top:12px;font-size:0.78em;color:rgba(255,255,255,0.35);">Desarrollado por <a href="https://github.com/HarryKing26" target="_blank" rel="noopener noreferrer" style="color:#F5A800;text-decoration:none;font-weight:700;">Harry ↗</a></p>
+</footer>
+
+<button id="btn-arriba" onclick="window.scrollTo({top:0,behavior:'smooth'})">▲</button>
+
+<script>
+    function toggleMenu(){
+        document.getElementById('nav-links').classList.toggle('abierto');
+        document.getElementById('hamburger').classList.toggle('open')
+    }
+    document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>{
+        document.getElementById('nav-links').classList.remove('abierto');
+        document.getElementById('hamburger').classList.remove('open')
+    }));
+    window.addEventListener('scroll',()=>{
+        var btn=document.getElementById('btn-arriba');
+        if(btn)btn.style.display=window.scrollY>300?'flex':'none'
+    });
+</script>
+</body>
+</html>

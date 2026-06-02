@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <title>Experiencias de Compañeros — Pedagogía Organizacional</title>
+  <style>
+    :root{--verde:#005C2E;--verde2:#007A3D;--verde3:#003D1F;--amarillo:#F5A800;--texto:#1f2937;--muted:#5b6472;--borde:rgba(0,92,46,.10);--shadow:0 16px 40px rgba(0,0,0,.10);--shadow-soft:0 10px 24px rgba(0,0,0,.07);--r:22px}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Open Sans',sans-serif;color:var(--texto);background:#f5f7f5;line-height:1.65}
+    a{text-decoration:none}
+    .contenedor{max-width:1200px;margin:0 auto;padding:0 20px}
+    .navbar-custom{position:sticky;top:0;z-index:9999;background:rgba(0,92,46,.92);backdrop-filter:blur(12px);box-shadow:0 8px 26px rgba(0,0,0,.14)}
+    .nav-top{display:flex;align-items:center;justify-content:space-between;padding:12px 22px;gap:14px}
+    .logo-udea{height:42px;filter:brightness(0) invert(1);flex-shrink:0}
+    .nav-titulo{color:#fff;font-size:.98rem;font-weight:800;letter-spacing:.2px;white-space:nowrap}
+    .nav-titulo span{color:var(--amarillo)}
+    .hamburger{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.22);border-radius:14px;cursor:pointer;display:flex;flex-direction:column;gap:5px;padding:10px 11px;transition:.2s;flex-shrink:0}
+    .hamburger span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:.25s}
+    .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .hamburger.open span:nth-child(2){opacity:0}
+    .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+    .nav-links{display:none;flex-direction:column;background:linear-gradient(180deg,#004d28,#003d1f);border-top:1px solid rgba(255,255,255,.08)}
+    .nav-links.abierto{display:flex}
+    .nav-links a{color:rgba(255,255,255,.92);padding:14px 24px;font-size:.92rem;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.08);transition:.2s}
+    .nav-links a i{color:var(--amarillo);width:16px}
+    .nav-links a:hover{background:rgba(0,122,61,.95);transform:translateX(2px)}
+    .hero-wrapper{padding:16px 20px 0;max-width:860px;margin:0 auto}
+    .hero{width:100%;border-radius:14px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.18);line-height:0}
+    .hero img{width:100%;height:auto;display:block}
+    .intro-wrap{text-align:center;padding:48px 20px 0;max-width:780px;margin:0 auto}
+    .intro-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;background:rgba(0,92,46,.08);border:1px solid rgba(0,92,46,.14);font-size:.80rem;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--verde);margin-bottom:16px}
+    .intro-badge i{color:var(--amarillo)}
+    .intro-wrap h1{font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;color:var(--verde);line-height:1.1;letter-spacing:-.5px;margin-bottom:12px}
+    .intro-wrap h1 span{color:var(--amarillo)}
+    .intro-wrap p{font-size:.98rem;color:var(--muted);line-height:1.8;max-width:640px;margin:0 auto}
+    .seccion{padding:60px 0}
+    .seccion-titulo{display:inline-flex;align-items:center;gap:10px;color:var(--verde);font-size:clamp(1.2rem,2vw,1.55rem);font-weight:800;margin-bottom:8px;padding-bottom:10px;border-bottom:4px solid var(--amarillo)}
+    .seccion-titulo::before{content:"";width:10px;height:10px;border-radius:999px;background:var(--amarillo);box-shadow:0 0 0 5px rgba(245,168,0,.16)}
+    .seccion-subtitulo{color:var(--muted);font-size:.94rem;margin-bottom:32px;max-width:700px;line-height:1.75}
+    .grupo-label{display:flex;align-items:center;gap:10px;padding:14px 20px;border-radius:14px;font-size:.92rem;font-weight:800;margin-bottom:16px;cursor:pointer;transition:all .2s;user-select:none}
+    .grupo-label i.icono{font-size:1rem}
+    .grupo-label i.chevron{margin-left:auto;transition:transform .25s}
+    .grupo-label.verde{background:linear-gradient(135deg,#005C2E,#007A3D);color:#fff}
+    .grupo-label.naranja{background:linear-gradient(135deg,#C45200,#E85D04);color:#fff}
+    .grupo-label.azul{background:linear-gradient(135deg,#004fa3,#0066CC);color:#fff}
+    .grupo-label .badge-count{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.25);padding:3px 10px;border-radius:999px;font-size:.78rem}
+    .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;margin-bottom:32px;transition:all .25s}
+    .cards-grid.oculto{display:none}
+    .exp-card{background:#fff;border-radius:18px;padding:22px;box-shadow:var(--shadow-soft);border:1.5px solid var(--borde);border-top:5px solid var(--verde2);transition:transform .22s,box-shadow .22s,border-color .22s;display:flex;flex-direction:column;gap:10px}
+    .exp-card.naranja{border-top-color:#E85D04}
+    .exp-card.azul{border-top-color:#0066CC}
+    .exp-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:rgba(0,122,61,.2)}
+    .exp-card.naranja:hover{border-color:rgba(232,93,4,.2)}
+    .exp-card.azul:hover{border-color:rgba(0,102,204,.25)}
+    .exp-nombre{font-size:.95rem;font-weight:800;color:var(--verde)}
+    .exp-card.naranja .exp-nombre{color:#C45200}
+    .exp-card.azul .exp-nombre{color:#004fa3}
+    .exp-rol{display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:999px;background:#eef8f2;color:var(--verde2);font-size:.77rem;font-weight:800;border:1.5px solid rgba(0,92,46,.12);width:fit-content}
+    .exp-card.naranja .exp-rol{background:#fff4ee;color:#C45200;border-color:rgba(232,93,4,.15)}
+    .exp-card.azul .exp-rol{background:#eef4ff;color:#0066CC;border-color:rgba(0,102,204,.18)}
+    .exp-separador{height:1px;background:linear-gradient(90deg,rgba(0,92,46,.10),transparent)}
+    .exp-card.naranja .exp-separador{background:linear-gradient(90deg,rgba(232,93,4,.10),transparent)}
+    .exp-card.azul .exp-separador{background:linear-gradient(90deg,rgba(0,102,204,.15),transparent)}
+    .exp-subtitulo{font-size:.78rem;font-weight:800;color:#0066CC;text-transform:uppercase;letter-spacing:.4px;margin-top:4px}
+    .exp-card.azul .exp-subtitulo{color:#004fa3}
+    .exp-texto{font-size:.89rem;color:var(--muted);line-height:1.75}
+    .exp-texto.recortado{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+    .btn-leer{background:none;border:none;cursor:pointer;color:var(--verde2);font-size:.82rem;font-weight:800;padding:0;text-decoration:underline;text-underline-offset:3px;margin-top:2px;width:fit-content}
+    .exp-card.naranja .btn-leer{color:#C45200}
+    .exp-card.azul .btn-leer{color:#0066CC}
+    footer{background:linear-gradient(180deg,#003D1F,#002615);color:#fff;padding:32px 20px 18px;text-align:center;position:relative;margin-top:10px}
+    footer::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#F5A800,#007A3D,#0066CC,#7B2D8B)}
+    footer p{font-size:.84em;color:rgba(255,255,255,.55);margin-top:6px}
+    #btn-arriba{position:fixed;bottom:22px;right:22px;width:46px;height:46px;border-radius:50%;border:none;background:linear-gradient(135deg,var(--verde2),var(--verde));color:#fff;display:none;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(0,0,0,.24);z-index:999;font-size:1em;cursor:pointer;transition:transform .2s}
+    #btn-arriba:hover{transform:translateY(-2px)}
+    @media(max-width:640px){
+      .cards-grid{grid-template-columns:1fr}
+      .nav-titulo{white-space:normal;font-size:.86rem;line-height:1.3}
+      .logo-udea{height:36px}
+      .seccion{padding:40px 0}
+      .grupo-label{font-size:.84rem;padding:12px 14px;gap:8px}
+      .grupo-label .badge-count{font-size:.72rem;padding:2px 8px}
+    }
+    @media(max-width:900px){.hero-wrapper{padding:14px 16px 0;max-width:100%}}
+    @media(max-width:380px){.nav-titulo{font-size:.76rem}.logo-udea{height:30px}}
+  </style>
+</head>
+<body>
+
+  <div class="navbar-custom">
+    <div class="nav-top">
+      <div style="display:flex;align-items:center;gap:10px;min-width:0;flex:1;">
+        <img src="https://www.udea.edu.co/wps/wcm/connect/udea/f5c65b46-756d-4713-ad93-b35bc483c51a/LogoS%C3%ADmbolo+Universidad+de+Antioquia+vertical+%C2%AE-01.png?MOD=AJPERES&CVID=nG2tMrp" alt="logo" class="logo-udea" onerror="this.style.display='none'">
+        <span class="nav-titulo">Pedagogía Organizacional <span>— Pregrado en Pedagogía - UdeA</span></span>
+      </div>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    </div>
+    <nav class="nav-links" id="nav-links">
+      <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
+      <a href="que-es.html"><i class="fas fa-question-circle"></i> ¿Qué es la Pedagogía Organizacional?</a>
+      <a href="por-que.html"><i class="fas fa-lightbulb"></i> ¿Por qué la Pedagogía Organizacional?</a>
+      <a href="experiencias.html"><i class="fas fa-microphone"></i> Experiencias de Compañeros</a>
+      <a href="galeria.html"><i class="fas fa-images"></i> Galería de Storytelling</a>
+      <a href="toolkit.html"><i class="fas fa-toolbox"></i> Caja de Herramientas</a>
+      <a href="sobre-nosotros.html"><i class="fas fa-users"></i> Sobre Nosotros</a>
+ <a href="conclusiones.html"><i class="fas fa-question-circle"></i> Conclusiones</a>
+<a href="bibliografia.html"><i class="fas fa-book"></i> Bibliografía</a>
+    </nav>
+  </div>
+
+  <div class="hero-wrapper">
+    <div class="hero">
+      <img src="imagenes/bannerexp.png" alt="Banner Experiencias" onerror="this.style.display='none'">
+    </div>
+  </div>
+
+  <div class="intro-wrap">
+    <div class="intro-badge"><i class="fas fa-microphone"></i> Voces del programa</div>
+    <h1>¿Qué piensan nuestros <span>compañeros?</span></h1>
+    <p>Testimonios y vivencias de estudiantes de Pedagogía sobre la práctica organizacional, recogidos a través de entrevistas y conversaciones académicas.</p>
+  </div>
+
+  <div class="seccion">
+    <div class="contenedor">
+
+      <h3 class="seccion-titulo">Experiencias y Opiniones</h3>
+      <p class="seccion-subtitulo">A continuación se presentan las voces recogidas durante el ejercicio de entrevista. El objetivo es mostrar cómo distintos compañeros interpretan la pedagogía organizacional desde su experiencia académica y personal.</p>
+
+      <div class="grupo-label verde" onclick="toggleGrupo('grupo-compas', this)">
+        <i class="fas fa-user-friends icono"></i>
+        <span>Compañeras y compañeros del programa</span>
+        <span class="badge-count">5 aportes</span>
+        <i class="fas fa-chevron-down chevron"></i>
+      </div>
+      <div class="cards-grid" id="grupo-compas">
+
+        <div class="exp-card">
+          <div class="exp-nombre">Laura Rivera</div>
+          <span class="exp-rol"><i class="fas fa-user"></i> Compañera</span>
+          <div class="exp-separador"></div>
+          <p class="exp-texto recortado">Para mí la pedagogía organizacional es un campo en el que se estudia y se aplican procesos formativos dentro de organizaciones, empresas o instituciones. Un pedagogo en este espacio podría diseñar talleres, capacitaciones formativas para empleados, trabajar en bienestar y realizar evaluaciones o retroalimentación a las entidades.</p>
+          <button class="btn-leer" onclick="toggleLeer(this)">Leer más</button>
+        </div>
+
+        <div class="exp-card">
+          <div class="exp-nombre">Fernanda Pantoja</div>
+          <span class="exp-rol"><i class="fas fa-user"></i> Compañera</span>
+          <div class="exp-separador"></div>
+          <p class="exp-texto recortado">Podría pensar que se trata de aquello que se encarga de realizar planeaciones, proyectos e instrucciones acerca de cómo se va a realizar alguna actividad.</p>
+          <button class="btn-leer" onclick="toggleLeer(this)">Leer más</button>
+        </div>
+
+        <div class="exp-card">
+          <div class="exp-nombre">Camila Monsalve</div>
+          <span class="exp-rol"><i class="fas fa-user"></i> Compañera</span>
+          <div class="exp-separador"></div>
+          <p class="exp-texto recortado">Es el conjunto de estrategias educativas que una institución diseña y aplica intencionalmente para desarrollar las capacidades de su personal. Diagnostica las necesidades de aprendizaje de cada individuo, equipo o área, y a partir de ahí crea dispositivos pedagógicos a la medida: talleres, mentorías, comunidades de práctica, aprendizaje en el puesto.</p>
+          <button class="btn-leer" onclick="toggleLeer(this)">Leer más</button>
+        </div>
+
+        <div class="exp-card">
+          <div class="exp-nombre">Mayra Arenales</div>
+          <span class="exp-rol"><i class="fas fa-user"></i> Compañera</span>
+          <div class="exp-separador"></div>
+          <p class="exp-texto recortado">Para mí, la pedagogía organizacional es la forma en que una organización como una empresa, institución educativa o fundación promueve el aprendizaje, la formación y el desarrollo de las personas dentro de ella.</p>
+          <button class="btn-leer" onclick="toggleLeer(this)">Leer más</button>
+        </div>
+
+        <div class="exp-card">
+          <div class="exp-nombre">Manuel Villa</div>
+          <span class="exp-rol"><i class="fas fa-user"></i> Compañero</span>
+          <div class="exp-separador"></div>
+          <p class="exp-texto recortado">Para mí, la pedagogía organizacional es la forma en que una organización como una empresa, institución educativa o fundación promueve el aprendizaje, la formación y el desarrollo de las personas dentro de ella.</p>
+          <button class="btn-leer" onclick="toggleLeer(this)">Leer más</button>
+        </div>
+
+      </div>
+
+      <div class="grupo-label naranja" onclick="toggleGrupo('grupo-otros', this)">
+        <i class="fas fa-graduation-cap icono"></i>
+        <span>Estudiantes de otros semestres y egresados</span>
+        <span class="badge-count">8 aportes</span>
+        <i class="fas fa-chevron-down chevron"></i>
+      </div>
+      <div class="cards-grid" id="grupo-otros">
+
+        <div class="exp-card naranja">
+          <div class="exp-nombre">Nicolás Gómez</div>
+          <span class="exp-rol"><i class="fas fa-graduation-cap"></i> Est. 2° semestre</span>
+          <div class="exp-separador"></div>
+          <p class="exp-texto recortado">Relacionando con el nombre, me suena a que busca formas más efectivas de clasificar conocimientos o saberes relacionados a la educación o que directamente se enfoca en el entorno corporativo.</p>
+          <button class="btn-leer" onclick="toggleLeer(this)">Leer más</button>
+        </div>
+
+        <div class="exp-card naranja">
+          <div class="exp-nombre">Dayana Vergara</div>
+          <span class="exp-rol"><i class="fas fa-graduation-cap"></i> Est. 4° semestre</span>
+          <div class="exp-separador"></div>
+          <p class="exp-texto recortado">La pedagogía organizacional para mí es la disciplina que aplica metodologías, estrategias, métodos educativos e investigativos en un entorno laboral, mostrando así muchas veces las falencias en los entornos laborales pero dando también soluciones estratégicas para la buena aplicabilidad de las metodologías en estos espacios y conseguir su objetivo trazado.</p>
+          <button class="btn-leer" onclick="toggleLeer(this)">Leer más</button>
+        </div>
+
+        <div class="exp-card naranja">
+          <div class="exp-nombre">Cristian Macías</div>
+          <span class="exp-rol"><i class="fas fa-graduation-cap"></i> Est. 7° semestre</span>
+          <div class="exp-separador"></div>
+          <p class="exp-texto recortado">Para mí, la pedagogía organizacional es la rama de la pedagogía que se encarga de los procesos educativos que ocurren dentro de las organizaciones en todos sus momentos. Desde el ingreso de las personas, mediante procesos de inducción y adaptación, pasando por su tiempo de permanencia, con procesos de capacitación, formación continua, construcción de cultura organizacional, liderazgo y acompañamiento frente a los cambios internos de la institución. También considero muy importante la etapa del egreso, que muchas veces es invisibilizada, donde entran procesos como la gestión del conocimiento de los que se van y el acompañamiento a las personas en la construcción de un proyecto o plan de vida después de su salida de la organización.</p>
+          <button class="btn-leer" onclick="toggleLeer(this)">Leer más</button>
+        </div>
+
+        <div class="exp-card naranja">
+          <div class="exp-nombre">María Fernanda Martínez</div>
+          <span class="exp-rol"><i class="fas fa-graduation-cap"></i> Est. 5° semestre</span>
+          <div class="exp-separador"></div>
+          <p class="exp-texto recortado">Para mí la Pedagogía Organizacional es un campo de acción de la pedagogía que, apoyándose en la andragogía, se enfoca en diseñar y desarrollar procesos de enseñanza y aprendizaje dirigidos a adultos dentro de las organizaciones. Su propósito es fortalecer conocimientos, habilidades y competencias que favorezcan no solo el desempeño eficiente en sus funciones, sino también el crecimiento personal, profesional y la adaptación a las dinámicas y necesidades de la organización.</p>
+          <button class="btn-leer" onclick="toggleLeer(this)">Leer más</button>
+        </div>
+
+        <div class="exp-card naranja">
+          <div class="exp-nombre">Muney Aty Robles</div>
+          <span class="exp-rol"><i class="fas fa-graduation-cap"></i> Est. 5° semestre</span>
+          <div class="exp-separador"></div>
+          <p class="exp-texto recortado">Para mí, la pedagogía organizacional es el campo que estudia y acompaña a las organizaciones sociales, comunitarias u de otra índole, como espacios donde también se forman y se construyen saberes. No se trata solo de "enseñar" o generar "talleres", sino de acompañar aquellos procesos donde las comunidades de cada organización producen conocimiento desde sus propias experiencias. En este sentido, el pedagogo cumple un rol de mediador, formador e investigador que diseña, orienta y evalúa proyectos.</p>
+          <button class="btn-leer" onclick="toggleLeer(this)">Leer más</button>
+        </div>
+
+        <div class="exp-card naranja">
+          <div class="exp-nombre">Liliana Olmos</div>
+          <span class="exp-rol"><i class="fas fa-graduation-cap"></i> Est. 9° semestre</span>
+          <div class="exp-separador"></div>
+          <p class="exp-texto recortado">Yo lo defino como un campo que aplica principios, métodos y estrategias de educación y formación dentro de un entorno organizacional con la finalidad de propiciar el desarrollo de competencias y la transformación de cultura e identidad de las personas que lo integran. Para el campo es habitual desarrollar funciones como el diseño y la gestión de programas de formación, la facilitación de cambio y transformación organizacional y la evaluación del impacto del aprendizaje en el desempeño.</p>
+          <button class="btn-leer" onclick="toggleLeer(this)">Leer más</button>
+        </div>
+
+        <div class="exp-card naranja">
+          <div class="exp-nombre">Edwin Martínez</div>
+          <span class="exp-rol"><i class="fas fa-star"></i> Egresado</span>
+          <div class="exp-separador"></div>
+          <p class="exp-texto recortado">El campo profesional que se ocupa de los procesos educativos y de formación en el contexto organizacional. Lo organizacional refiere a todo lo relacionado con el funcionamiento, la estructura, los procesos y el comportamiento dentro de una organización o empresa.</p>
+          <button class="btn-leer" onclick="toggleLeer(this)">Leer más</button>
+        </div>
+
+        <div class="exp-card naranja">
+          <div class="exp-nombre">Elena Velásquez</div>
+          <span class="exp-rol"><i class="fas fa-graduation-cap"></i> Est. 5° semestre</span>
+          <div class="exp-separador"></div>
+          <p class="exp-texto recortado">Para mí la pedagogía organizacional es al interior de una organización analizar los factores educativos, la idea, la productividad, el alcance, el público dependiendo de donde sea. Se piensa el contexto de los trabajadores dentro de ella y las herramientas que se pueden usar para su alcance. Se extiende al acompañamiento de los empleados en todo su proceso, desde la formación inicial hasta el desempeño.</p>
+          <button class="btn-leer" onclick="toggleLeer(this)">Leer más</button>
+        </div>
+
+      </div>
+
+      <div class="grupo-label azul" onclick="toggleGrupo('grupo-practica', this)">
+        <i class="fas fa-briefcase icono"></i>
+        <span>Voces desde la práctica organizacional</span>
+        <span class="badge-count">1 aporte</span>
+        <i class="fas fa-chevron-down chevron"></i>
+      </div>
+      <div class="cards-grid" id="grupo-practica">
+
+        <div class="exp-card azul">
+          <div class="exp-nombre">Aura Ramírez</div>
+          <span class="exp-rol"><i class="fas fa-chalkboard-teacher"></i> Formadora — Call Center</span>
+          <div class="exp-separador"></div>
+
+          <div class="exp-subtitulo">Ingreso y trayectoria</div>
+          <p class="exp-texto recortado">Llegué al call center por medio de una oferta de trabajo en un grupo de personas bilingües y trilingües. No me postulé para formadora; por un imprevisto tomaron en cuenta mi perfil para cubrir a otro compañero. Acepté porque me gusta aprender y tenía mucho conocimiento del producto.</p>
+          <button class="btn-leer" onclick="toggleLeer(this)">Leer más</button>
+
+          <div class="exp-separador"></div>
+          <div class="exp-subtitulo">El salto a la educación</div>
+          <p class="exp-texto recortado">Fue todo un reto enfrentarme a los grupos para enseñar. Si bien ya teníamos material establecido, había que buscar la manera de transmitir la información. No fue fácil, sin embargo contaba con compañeros que me daban ideas y material para dinamizar el proceso de formación.</p>
+          <button class="btn-leer" onclick="toggleLeer(this)">Leer más</button>
+
+          <div class="exp-separador"></div>
+          <div class="exp-subtitulo">La curva de aprendizaje</div>
+          <p class="exp-texto recortado">Tuve varios grupos, siempre fue mucha comunicación con los aspirantes sobre qué cosas funcionaban y cuáles no. A medida que iba formando los grupos, descubría mi estilo de enseñanza y lo que iba mejor tanto para el grupo como para mí.</p>
+          <button class="btn-leer" onclick="toggleLeer(this)">Leer más</button>
+
+          <div class="exp-separador"></div>
+          <div class="exp-subtitulo">El día a día como formadora</div>
+          <p class="exp-texto recortado">Normalmente se programa toda la formación con los otros formadores para tener un calendario de qué temas se abordan cada día, asegurando que todos los grupos tengan una experiencia similar. Me apoyo en todo lo que se ha planeado con antelación.</p>
+          <button class="btn-leer" onclick="toggleLeer(this)">Leer más</button>
+
+          <div class="exp-separador"></div>
+          <div class="exp-subtitulo">El aporte de su profesión</div>
+          <p class="exp-texto recortado">Como traductora, me ayudaba mucho el nivel de lengua para preparar vocabularios e información que mejoraran la comunicación y la experiencia del cliente. Creo que mi experiencia como traductora puede ser de mucha utilidad en el call center para cualquier posición.</p>
+          <button class="btn-leer" onclick="toggleLeer(this)">Leer más</button>
+
+          <div class="exp-separador"></div>
+          <div class="exp-subtitulo">Estilo de enseñanza propio</div>
+          <p class="exp-texto recortado">Mi estilo no es tan dinámico; para evitar distracciones utilizo ejemplos de situaciones reales del servicio, hacemos pausas para despejar la mente, los aspirantes se explican temas entre sí eligiendo a alguien al azar, y uso plataformas para quizzes y juegos con los errores más recurrentes.</p>
+          <button class="btn-leer" onclick="toggleLeer(this)">Leer más</button>
+
+          <div class="exp-separador"></div>
+          <div class="exp-subtitulo">Desafíos en el aula</div>
+          <p class="exp-texto recortado">Lo más difícil es evitar el desgaste mental de las personas y el mío. Trato de mantener buena comunicación, estar pendiente del lenguaje no verbal y mostrarme abierta a resolver dudas, de modo que los aspirantes puedan expresar sus inquietudes o pedir una pausa cuando lo necesiten.</p>
+          <button class="btn-leer" onclick="toggleLeer(this)">Leer más</button>
+
+          <div class="exp-separador"></div>
+          <div class="exp-subtitulo">Factor humano</div>
+          <p class="exp-texto recortado">Para mí es más importante que el asesor desarrolle habilidades de comunicación que memorice información técnica. En la formación realizamos roleplay de llamadas comunes, escuchamos llamadas reales, tenemos charlas para manejar situaciones difíciles y fortalecemos el vocabulario de la campaña.</p>
+          <button class="btn-leer" onclick="toggleLeer(this)">Leer más</button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <p style="color:rgba(255,255,255,0.85);font-size:0.95em;font-weight:600;">Experiencias de Compañeros — Pedagogía Organizacional</p>
+    <p>© 2026 Pregrado en Pedagogía · Proyecto académico sin ánimo de lucro.</p>
+    <p style="margin-top:12px;font-size:0.78em;color:rgba(255,255,255,0.35);">Desarrollado por <a href="https://github.com/HarryKing26" target="_blank" rel="noopener noreferrer" style="color:#F5A800;text-decoration:none;font-weight:700;">Harry ↗</a></p>
+  </footer>
+
+  <button id="btn-arriba" onclick="window.scrollTo({top:0,behavior:'smooth'})">▲</button>
+
+  <script>
+    function toggleMenu(){document.getElementById('nav-links').classList.toggle('abierto');document.getElementById('hamburger').classList.toggle('open')}
+    document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>{document.getElementById('nav-links').classList.remove('abierto');document.getElementById('hamburger').classList.remove('open')}));
+    window.addEventListener('scroll',()=>{var btn=document.getElementById('btn-arriba');if(btn)btn.style.display=window.scrollY>300?'flex':'none'});
+    function toggleGrupo(id,label){const grid=document.getElementById(id);const chevron=label.querySelector('.chevron');const oculto=grid.classList.toggle('oculto');chevron.style.transform=oculto?'rotate(-90deg)':'rotate(0deg)'}
+    function toggleLeer(btn){const p=btn.previousElementSibling;const expandido=p.classList.toggle('recortado');btn.textContent=expandido?'Leer más':'Leer menos'}
+  </script>
+</body>
+</html>
